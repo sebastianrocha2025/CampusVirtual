@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>
+    {% if form.instance.pk %}
+        ✏️ Editar cuestionario
+    {% else %}
+        ➕ Nuevo cuestionario
+    {% endif %}
+</h2>
+
+<p><strong>Clase:</strong> {{ clase.titulo }}</p>
+
+<hr>
+
+<form method="post">
+    {% csrf_token %}
+
+    <div>
+        <label for="id_titulo">Título:</label><br>
+        {{ form.titulo }}
+        {% if form.titulo.errors %}
+            <div style="color:red;">
+                {{ form.titulo.errors }}
+            </div>
+        {% endif %}
+    </div>
+
+    <br>
+
+    <div>
+        <label for="id_descripcion">Descripción:</label><br>
+        {{ form.descripcion }}
+        {% if form.descripcion.errors %}
+            <div style="color:red;">
+                {{ form.descripcion.errors }}
+            </div>
+        {% endif %}
+    </div>
+
+    <br>
+
+    <div>
+        <label>
+            {{ form.activo }}
+            Activo
+        </label>
+    </div>
+
+    <br><br>
+
+    <button type="submit" class="btn btn-primary">
+        💾 Guardar
+    </button>
+
+    <a href="{% url 'profesor:cuestionarios' clase.id %}" class="btn btn-secondary">
+        ← Volver
+    </a>
+
+</form>
+
+{% endblock %}

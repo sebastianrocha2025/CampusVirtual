@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1> Editar nota</h1>
+
+<p>
+    Alumno: {{ nota.inscripcion.alumno.username }}<br>
+    Curso: {{ nota.inscripcion.curso.nombre }}
+</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-secondary"> Guardar cambios</button>
+</form>
+<br>
+<a href="{% url 'profesor_detalle_inscripcion' nota.inscripcion.id %}" class="btn btn-secondary">
+    ← Volver
+</a>
+{% endblock %}

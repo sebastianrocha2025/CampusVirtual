@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2> Asistencia – {{ curso.nombre }}</h2>
+
+<form method="post">
+{% csrf_token %}
+
+<table border="1" cellpadding="6">
+    <thead>
+        <tr>
+            <th>Alumno</th>
+            {% for fecha in fechas %}
+                <th>{{ fecha|date:"d/m" }}</th>
+            {% endfor %}
+            <th>Hoy ({{ fecha_hoy|date:"d/m" }})</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for inscripcion in inscripciones %}
+        <tr>
+            <td>{{ inscripcion.alumno.username }}</td>
+
+            {% for fecha in fechas %}
+                <td align="center">
+                    {% for a in inscripcion.asistencias.all %}
+                        {% if a.fecha == fecha %}
+                            {% if a.presente %}
+                                P
+                            {% else %}
+                                A
+                            {% endif %}
+                        {% endif %}
+                    {% empty %}
+                        —
+                    {% endfor %}
+                </td>
+            {% endfor %}
+
+            <td align="center">
+                <input type="checkbox"
+                       name="presente_{{ inscripcion.id }}">
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<br>
+<button type="submit" class="btn btn-primary">Guardar asistencia</button>
+</form>
+<br>
+<a href="{% url 'profesor_editar_asistencia' curso.id %}" class="btn btn-primary">Modificar historial</a>
+<a href="{% url 'cursos_profesor' %}" class="btn btn-secondary">← Volver</a>
+
+{% endblock %}

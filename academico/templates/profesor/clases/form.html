@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+  <!-- Título del curso -->
+  <h2 class="mb-3"> {{ curso.nombre }}</h2>
+
+  <!-- Card del formulario -->
+  <div class="card shadow-sm bg-secondary">
+    
+    <div class="card-header bg-secondary text-white">
+      <h4 class="mb-0"> Nueva clase</h4>
+    </div>
+
+    <div class="card-body">
+   <form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  <div class="mb-3">
+    <label class="form-label">Título</label>
+    {{ form.titulo }}
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Descripción</label>
+    {{ form.descripcion }}
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Archivo PDF</label>
+    <input type="file" name="archivo" class="form-control">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Orden</label>
+    {{ form.orden }}
+  </div>
+
+  <button type="submit" class="btn btn-primary">
+    Guardar clase
+  </button>
+
+</form>
+
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}

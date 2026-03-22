@@ -1,0 +1,40 @@
+<!-- {% extends "base.html" %}
+
+{% block content %}
+<h1>📘 {{ inscripcion.curso.nombre }}</h1>
+<h2>👤 {{ inscripcion.alumno.username }}</h2>
+
+<hr>
+
+<h3>📝 Notas</h3>
+<a href="{% url 'profesor_cargar_nota' inscripcion.id %}">➕ Nueva nota</a>
+
+<ul>
+{% for nota in notas %}
+    <li>
+        {{ nota.nombre }}: {{ nota.valor }}
+        <a href="#">✏️</a>
+        
+
+    </li>
+{% empty %}
+    <li>Sin notas</li>
+{% endfor %}
+</ul>
+
+<hr>
+
+<h3>📅 Asistencia</h3>
+<a href="{% url 'profesor_cargar_asistencia' inscripcion.id %}">
+    ➕ Cargar asistencia
+</a>
+
+<ul>
+{% for a in asistencias %}
+    <li>{{ a.fecha }} — {{ a.get_estado_display }}</li>
+{% empty %}
+    <li>Sin registros</li>
+{% endfor %}
+</ul>
+
+{% endblock %} -->

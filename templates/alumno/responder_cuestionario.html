@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ cuestionario.titulo }}</title>
+</head>
+<body>
+
+<h1>{{ cuestionario.titulo }}</h1>
+<p>{{ cuestionario.descripcion }}</p>
+
+<hr>
+
+<form method="post">
+    {% csrf_token %}
+
+    {% for pregunta in preguntas %}
+        <div style="margin-bottom: 25px;">
+            <strong>{{ forloop.counter }}. {{ pregunta.texto }}</strong>
+            <br><br>
+
+            {% if pregunta.permite_multiple %}
+                {% for opcion in pregunta.opciones.all %}
+                    <label>
+                        <input type="checkbox"
+                               name="pregunta_{{ pregunta.id }}"
+                               value="{{ opcion.id }}">
+                        {{ opcion.texto }}
+                    </label>
+                    <br>
+                {% endfor %}
+            {% else %}
+                {% for opcion in pregunta.opciones.all %}
+                    <label>
+                        <input type="radio"
+                               name="pregunta_{{ pregunta.id }}"
+                               value="{{ opcion.id }}">
+                        {{ opcion.texto }}
+                    </label>
+                    <br>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    <button type="submit">Enviar cuestionario</button>
+</form>
+
+<br>
+<a href="{% url 'material_clase' cuestionario.clase.curso.id %}" class="btn btn-secondary">
+    ← Volver
+</a>
+
+</body>
+{% endblock %}
+</html>

@@ -1,0 +1,78 @@
+
+{% extends 'base.html' %}
+{% block content %}
+    <h1> Progreso del curso {{ curso.nombre }}</h1>
+
+    <hr>
+
+    <!-- ================= ASISTENCIA ================= -->
+
+    <h2> Asistencias</h2>
+
+    <p>
+        <strong>Porcentaje de asistencia:</strong>
+        {{ inscripcion.porcentaje_asistencia }}%
+    </p>
+
+    {% if asistencias %}
+        <table border="1" cellpadding="8">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for asistencia in asistencias %}
+                    <tr>
+                        <td>{{ asistencia.fecha }}</td>
+                        <td>
+                            {% if asistencia.presente %}
+                                 Presente
+                            {% else %}
+                                 Ausente
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No hay asistencias registradas.</p>
+    {% endif %}
+
+    <hr>
+
+    <!-- ================= NOTAS ================= -->
+
+    <h2> Notas</h2>
+
+    {% if notas %}
+        <table border="1" cellpadding="8">
+            <thead>
+                <tr>
+                    <th>Evaluación</th>
+                    <th>Nota</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for nota in notas %}
+                    <tr>
+                        <td>{{ nota.cuestionario.titulo }}</td>
+                        <td>{{ nota.valor }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No hay notas registradas.</p>
+    {% endif %}
+
+    <hr>
+
+    <a href="{% url 'mis_cursos' %}" class="btn btn-secondary">Volver a Mis Cursos</a>
+
+</body>
+
+{% endblock %}
+</html>

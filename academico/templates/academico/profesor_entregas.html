@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Entregas - {{ cuestionario.titulo }}</title>
+</head>
+<body>
+
+<h1>Entregas</h1>
+<h2>{{ cuestionario.titulo }}</h2>
+
+<hr>
+
+<table border="1" cellpadding="8">
+    <thead>
+        <tr>
+            <th>Alumno</th>
+            <th>Estado</th>
+            <th>Fecha</th>
+            <th>Puntaje</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in data %}
+            <tr>
+                <td>{{ item.alumno.username }}</td>
+
+                {% if item.entrega %}
+                    <td>✅ Entregado</td>
+                    <td>{{ item.entrega.enviada }}</td>
+                {% else %}
+                    <td>❌ No entregado</td>
+                    <td>-</td>
+                {% endif %}
+                    <td>
+
+                {% if item.puntaje is not None %}
+                    {{ item.puntaje }}
+                {% else %}
+                    -
+                {% endif %}
+
+            </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>
+<a href="javascript:history.back()" class="btn btn-secondary">← Volver</a>
+
+</body>
+{% endblock %}
+</html>

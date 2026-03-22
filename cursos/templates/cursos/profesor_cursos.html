@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Mis cursos (Profesor){% endblock %}
+
+{% block content %}
+
+<h1 class="mb-4 text-center"> Mis cursos</h1>
+
+<div class="row">
+
+{% for curso in cursos %}
+
+<div class="col-md-4 mb-4">
+
+<div class="card shadow-sm h-100">
+
+<div class="card-body bg-secondary text-white">
+
+<h3 class="card-title text-center">
+{{ curso.nombre }}
+</h3>
+
+
+<div class="d-grid gap-2 background-light">
+
+<a href="{% url 'profesor_detalle_curso' curso.id %}" 
+   class="btn btn-primary btn-sm">
+    Detalles
+</a>
+
+<a href="{% url 'profesor:profesor_clases_por_curso' curso.id %}" 
+   class="btn btn-primary btn-sm">
+   Ver clases
+</a>
+
+<a href="{% url 'profesor_notas_curso' curso.id %}" 
+   class="btn btn-primary btn-sm">
+    Notas
+</a>
+
+<a href="{% url 'profesor_tomar_asistencia' curso.id %}" 
+   class="btn btn-primary btn-sm">
+   Tomar asistencia
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<p>No tenés cursos asignados.</p>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

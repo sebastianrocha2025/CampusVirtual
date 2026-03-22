@@ -1,0 +1,74 @@
+
+{% extends 'base.html' %}
+{% block content %}
+{{ material.archivo.url }}
+    <h1> Material del curso {{ curso.nombre }}</h1>
+
+
+    <!-- ================= CLASES ================= -->
+
+    <h2> Clases publicadas</h2>
+
+    {% if clases %}
+        <ul>
+            {% for clase in clases %}
+
+            <div class="card mb-3 p-3">
+
+            <h5>{{ clase.titulo }}</h5>
+
+            <p>{{ clase.descripcion }}</p>
+
+            {% for material in clase.materiales.all %}
+
+                {% if material.archivo %}
+                    <a href="{{ material.archivo.url }}"target="_blank" class="btn btn-secondary" download>
+                        Descargar archivo
+                    </a>
+                {% endif %}
+
+                {% if material.enlace %}
+                    <a href="{{ material.enlace }}" target="_blank" class="btn btn-secondary">
+                         Ver enlace
+                    </a>
+                {% endif %}
+            {% endfor %}
+
+            </div>
+
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay clases publicadas todavía.</p>
+    {% endif %}
+
+    <hr>
+
+    <!-- ================= CUESTIONARIOS ================= -->
+
+    <h2>Cuestionarios activos</h2>
+
+    {% if cuestionarios %}
+        <ul>
+            {% for cuestionario in cuestionarios %}
+                <li>
+                    <strong>{{ cuestionario.titulo }}:</strong>
+                    <a href="{% url 'alumno_responder_cuestionario' cuestionario.id %}" class="btn btn-secondary btn-sm">
+                        Responder cuestionario
+                    </a>
+                </li>
+                <br>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay cuestionarios activos.</p>
+    {% endif %}
+
+    <hr>
+
+    <a href="{% url 'mis_cursos' %}" class="btn btn-secondary">Volver a Mis Cursos</a>
+
+
+</body>
+{% endblock %}
+</html>

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5 mb-5">
+
+    <h2 class="mb-4">Solicitud de Inscripción</h2>
+
+    <p class="text-muted">
+        Completá tus datos y administración se pondrá en contacto para registrarte en el campus.
+    </p>
+
+    <div class="card p-4 shadow">
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+                    <label>Nombre y Apellido</label>
+                    {{ form.nombre }}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>DNI</label>
+                    {{ form.dni }}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Fecha de nacimiento</label>
+                    {{ form.fecha_nacimiento }}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Celular</label>
+                    {{ form.celular }}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Email</label>
+                    {{ form.email }}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Curso de interés</label>
+                    {{ form.curso_interes }}
+                </div>
+
+                <div class="col-12 mb-3">
+                    <label>Mensaje</label>
+                    {{ form.mensaje }}
+                </div>
+
+            </div>
+
+            <button class="btn btn-success">
+                Enviar solicitud
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

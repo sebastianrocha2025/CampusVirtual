@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Cursos{% endblock %}
+
+{% block content %}
+
+{% if es_alumno %}
+
+<h1 class="text-center mb-4">Bienvenido al Campus</h1>
+<hr>
+
+<div class="text-center mb-5">
+<a href="{% url 'mis_cursos' %}" class="btn btn-secondary">
+Ver mis cursos
+</a>
+</div>
+
+{% endif %}
+
+<div class="row">
+
+{% for item in cursos_con_estado %}
+
+<div class="col-md-3 mb-4">
+
+<div class="card h-100 bg-secondary shadow-sm text-center">
+
+<div class="card-body" >
+
+<h4 class="card-title text-white">
+{{ item.curso.nombre }}
+</h4>
+
+<p class="text-white mb-3">
+{{ item.curso.profesor.first_name }} {{ item.curso.profesor.last_name }}
+</p>
+<hr>
+
+<p class="text-white">Estado: {{ item.estado }}</p>
+{% if item.inscripto %}
+
+<strong>INSCRIPTO</strong>
+
+
+
+{% elif es_alumno %}
+
+{% if item.curso.tiene_cupo %}
+
+<a href="{% url 'inscribirse' item.curso.id %}" class="btn btn-secondary btn-sm">
+Inscribirse
+</a>
+
+{% else %}
+
+<span class="badge bg-secondary">
+Sin cupo
+</span>
+
+{% endif %}
+
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<div class="col-12 text-center">
+<p>No hay cursos disponibles</p>
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

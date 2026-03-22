@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>lista de preguntas para el cuestionario "{{ cuestionario.titulo }}"</h1>
+{% for pregunta in preguntas %}
+  <div>
+    {{ pregunta.texto }}
+
+  </div>
+{% endfor %}
+
+<a href="{% url 'profesor:pregunta_crear' cuestionario.id %}" class="btn btn-primary">
+  ➕ Nueva pregunta </a>
+<a href="{% url 'profesor:cuestionarios' cuestionario.clase.id %}" class="btn btn-secondary">
+   Volver </a>
+
+{% endblock %}

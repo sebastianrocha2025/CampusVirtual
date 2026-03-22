@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- HERO INSTITUCIONAL -->
+<section class="hero-instituto text-white text-center d-flex align-items-center justify-content-center">
+    <div class="overlay"></div>
+
+    <div class="contenido">
+        <h1 class="display-3 fw-bold">Instituto Educativo</h1>
+        <p class="lead">Centro de Formación y Capacitación</p>
+
+        {% if not user.is_authenticated %}
+            <a href="{% url 'login' %}" class="btn btn-light btn-lg mt-3">
+                Ingresar al Campus
+            </a>
+        {% else %}
+            <a href="/cursos/" class="btn btn-success btn-lg mt-3">
+                Ir a mis cursos
+            </a>
+        {% endif %}
+    </div>
+</section>
+
+
+
+<!-- 🆕 GALERÍA DE CURSOS -->
+<section class="container mt-5 mb-5 text-center">
+
+    <h2 class="mb-4">Nuestros Cursos</h2>
+    <p class="text-muted mb-5">
+        Conocé algunas de nuestras áreas de formación
+    </p>
+
+    <div class="row g-4">
+
+        <!-- CARD -->
+        <div class="col-md-4">
+            <div class="card-curso">
+                <img src="{% static 'img/peluqueria.png' %}" style="height: 200px;" hover="scale(1.05);">
+                <div class="titulo">Peluquería</div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card-curso">
+                <img src="{% static 'img/carpinteria.png' %}" style="height: 200px;" hover="scale(1.05);">
+                <div class="titulo">Carpintería</div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card-curso">
+                <img src="{% static 'img/gastronomia.png' %}" style="height: 200px;" hover="scale(1.05);">
+                <div class="titulo">Gastronomía</div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card-curso">
+                <img src="{% static 'img/electricidad.jpg' %}"style="height: 200px;" hover="scale(1.05);">
+                <div class="titulo">Electricidad</div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card-curso">
+                <img src="{% static 'img/ingles.jpg' %}"style="height: 200px;" hover="scale(1.05);">
+                <div class="titulo">Inglés</div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card-curso">
+                <img src="{% static 'img/informatica.png' %}" style="height: 200px;" hover="scale(1.05);">
+                <div class="titulo">Informática</div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+<!-- 📨 SECCIÓN INSCRIPCIONES / VACANTES -->
+<section class="seccion-inscripciones mt-5">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <!-- TEXTO -->
+            <div class="col-md-7">
+
+                <h2 class="mb-3">¿Querés ser parte de nuestra institución?</h2>
+
+                <p class="lead">
+                    Si te interesa formar parte de nuestros cursos y vacantes disponibles,
+                    podés contactarte con el área de administración.
+                </p>
+
+                <p>
+                    Enviá un email con tus datos personales y nos pondremos en contacto
+                    para registrarte en el campus virtual.
+                </p>
+
+                <div class="datos-inscripcion mt-4">
+
+                    <h5>Datos que debes enviar:</h5>
+
+                    <ul>
+                        <li>Nombre y Apellido</li>
+                        <li>DNI</li>
+                        <li>Fecha de nacimiento</li>
+                        <li>Número de celular</li>
+                        <li>Curso de interés</li>
+                    </ul>
+
+                </div>
+
+                <p class="mt-3">
+                    Luego desde administración se creará tu usuario y recibirás
+                    por email tu acceso al campus virtual.
+                </p>
+                <a href="{% url 'inscripcion' %}" class="btn btn-success btn-lg mt-3">
+                    Solicitar Inscripción
+                </a>
+
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+
+</section>
+
+<!-- INFORMACIÓN INSTITUCIONAL -->
+<section class="bg-light mt-5 p-5 text-center">
+            <h2 class="mb-3">Sobre el Instituto</h2>
+            <p class="mt-3">
+                El Instituto Educativo brinda formación académica de calidad,
+                orientada al desarrollo integral de los estudiantes y la
+                capacitación profesional.
+            </p>
+        
+    
+</section>
+
+<!-- SECCIÓN INSTITUCIONAL -->
+<section class="bg-light mt-5 p-5 text-center">
+    <h2>Nuestra Misión</h2>
+    <p class="mt-3">
+        Formar profesionales capacitados, con valores éticos y compromiso social,
+        preparados para enfrentar los desafíos del mundo actual.
+    </p>
+</section>
+
+
+{% endblock %}

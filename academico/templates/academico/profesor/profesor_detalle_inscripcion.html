@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>📄 Ficha académica!</h1>
+
+<p>
+    <strong>Alumno:</strong> {{ inscripcion.alumno.first_name }}<br>
+    <strong>Curso:</strong> {{ inscripcion.curso.nombre }}<br>
+    <strong>Estado:</strong> {{ inscripcion.get_estado_display }}
+</p>
+
+<hr>
+
+<h2>📝 Notas</h2>
+<ul>
+    {% for nota in notas %}
+        <li>{{ nota.cuestionario }}: {{ nota.valor }}
+        <a href="{% url 'profesor_borrar_nota' nota.id %}" class="btn btn-secondary m-2 p-1" >
+    Eliminar
+</a>
+<a href="{% url 'profesor_editar_nota' nota.id %}" class="btn btn-secondary m-2 p-1">
+    Editar
+</a></li>
+
+    {% empty %}
+        <li>Sin notas cargadas</li>
+    {% endfor %}
+</ul>
+
+
+<a href="{% url 'profesor_cargar_nota' inscripcion.id %}" class="btn btn-primary">
+    ➕ Agregar nota
+</a>
+
+
+<hr>
+
+<h2>📊 Asistencia</h2>
+<p>Porcentaje: <strong>{{ inscripcion.porcentaje_asistencia }}%</strong></p>
+
+<ul>
+{% for asistencia in asistencias %}
+    <li>
+        {{ asistencia.fecha }} —
+        {% if asistencia.presente %}✅{% else %}❌{% endif %}
+
+
+    </li>
+{% empty %}
+    <li>No hay asistencias cargadas</li>
+{% endfor %}
+</ul>
+
+
+
+<hr>
+
+<a href="{% url 'profesor_detalle_curso' inscripcion.curso.id %}" class="btn btn-secondary">
+     Volver al curso
+</a>
+{% endblock %}

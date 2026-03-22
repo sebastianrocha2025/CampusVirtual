@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 class="text-center mb-4">Mis cursos</h1>
+
+<div class="row">
+
+{% for inscripcion in inscripciones %}
+
+<div class="col-md-3 mb-4">
+
+<div class="card h-100 bg-secondary shadow-sm text-center">
+
+<div class="card-body">
+
+<h4 class="card-title text-white">
+{{ inscripcion.curso.nombre }}
+</h4>
+
+<p class="text-white">
+ {{ inscripcion.curso.profesor.first_name }} {{ inscripcion.curso.profesor.last_name }}
+</p>
+
+<div class="d-grid gap-2">
+
+<a href="{% url 'progreso_academico' inscripcion.curso.id %}" 
+   class="btn btn-secondary btn-sm">
+ Progreso académico
+</a>
+
+<a href="{% url 'material_clase' inscripcion.curso.id %}" 
+   class="btn btn-secondary btn-sm">
+ Material de clase
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<div class="col-12 text-center">
+<p>No estás inscripto en ningún curso.</p>
+</div>
+
+{% endfor %}
+
+</div>
+
+<div class="text-center mt-4">
+
+<a href="{% url 'lista_cursos' %}" class="btn btn-secondary">
+ Volver a cursos
+</a>
+
+</div>
+
+{% endblock %}

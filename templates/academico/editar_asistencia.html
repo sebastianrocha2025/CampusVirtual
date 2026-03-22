@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load academico_extras %}
+{% block content %}
+
+<h2>Editar historial de asistencia – {{ curso.nombre }}</h2>
+
+<form method="post">
+{% csrf_token %}
+
+<table border="1" cellpadding="6">
+    <thead>
+        <tr>
+            <th>Alumno</th>
+            {% for fecha in fechas %}
+                <th>{{ fecha|date:"d/m" }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for inscripcion in inscripciones %}
+        <tr>
+            <td>{{ inscripcion.alumno.username }}</td>
+
+            {% for fecha in fechas %}
+                {% with fila=asistencias_map|dict_get:inscripcion.id %}
+                {% with presente=fila|dict_get:fecha %}
+                <td align="center">
+                <input type="text"
+                    name="asistencia_{{ inscripcion.id }}_{{ fecha|date:'Y-m-d' }}"
+                    maxlength="1"
+                    style="width:28px; text-align:center;"
+                    value="{% if presente %}P{% else %}A{% endif %}">
+
+                </td>
+                {% endwith %}
+                {% endwith %}
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<br>
+<button type="submit" class="btn btn-secondary"> Guardar historial</button>
+</form>
+<br>
+<a href="{% url 'profesor_tomar_asistencia' curso.id %}" class="btn btn-secondary"> Volver</a>
+
+{% endblock %}

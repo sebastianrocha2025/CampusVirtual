@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="text-center"> Ficha personal del alumno</h1>
+
+<hr>
+
+<h3> Datos personales</h3>
+
+<ul>
+    <li><strong>Nombre:</strong> {{ alumno.first_name }}</li>
+    <li><strong>Apellido:</strong> {{ alumno.last_name }}</li>  
+    <li><strong>DNI:</strong> {{ alumno.dni }}</li>
+    <li><strong>Fecha de nacimiento:</strong> {{ alumno.fecha_nacimiento|date:"d/m/Y" }}</li>
+    <li><strong>Email:</strong> {{ alumno.email }}</li>
+    <li><strong>Teléfono:</strong> {{ alumno.telefono|default:"—" }}</li>
+    <li><strong>Fecha de registro:</strong> {{ alumno.date_joined|date:"d/m/Y" }}</li>
+</ul>
+
+<hr>
+
+<h3> Cursos realizados / en curso</h3>
+
+<ul>
+{% for inscripcion in inscripciones %}
+    <li>
+        {{ inscripcion.curso.nombre }}
+        — Estado: {{ inscripcion.get_estado_display }}
+
+    </li>
+{% empty %}
+    <li>No tiene cursos registrados.</li>
+{% endfor %}
+</ul>
+
+<a href="javascript:history.back()" class="btn btn-secondary"> Volver
+</a>
+
+{% endblock %}

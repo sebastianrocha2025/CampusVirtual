@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}{{ curso.nombre }}{% endblock %}
+
+{% block content %}
+<h1>📘 {{ curso.nombre }}</h1>
+
+<h2>👥 Alumnos inscriptos</h2>
+
+
+<a href="{% url 'profesor_tomar_asistencia' curso.id %}" class="btn btn-primary m-4">
+     Tomar asistencia
+</a><br>
+
+
+<ul>
+    {% for inscripcion in inscripciones %}
+        <li>
+            <strong>{{ inscripcion.alumno.username }}</strong>
+            
+
+            | <a href="{% url 'profesor_detalle_inscripcion' inscripcion.id %}" class="btn btn-primary m-2 btn-sm">
+                Ficha académica
+              </a><br>
+        </li>
+    {% empty %}
+        <li>No hay alumnos inscriptos</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'cursos_profesor' %}" class="btn btn-secondary">← Volver a mis cursos</a>
+{% endblock %}

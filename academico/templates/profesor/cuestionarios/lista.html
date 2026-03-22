@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Cuestionarios – {{ clase.titulo }}</h2>
+
+<a href="{% url 'profesor:cuestionario_crear' clase.id %}" class="btn btn-primary">
+➕ Nuevo cuestionario
+</a>
+        <a href="{% url 'profesor:profesor_clases_por_curso' clase.curso.id %}" class="btn btn-secondary">
+        volver
+      </a> <br>
+
+<ul>
+  {% for c in cuestionarios %}
+
+    <li>
+      {{ c.titulo }} ({{ c.activo|yesno:"Activo,Inactivo" }})
+
+      <a href="{% url 'profesor:preguntas' c.id %}" class="btn btn-secondary m-2 btn-sm">
+         Preguntas
+      </a>
+        <a href="{% url 'profesor:profesor_cuestionario_editar' c.id %}" class="btn btn-secondary m-2 btn-sm">
+     Editar Cuestionario</a>
+
+         <a href="{% url 'profesor_entregas_cuestionario' c.id %}" class="btn btn-secondary m-2 btn-sm">
+         Entregas
+    </a>
+    </li>
+  {% endfor %}
+
+
+</ul>
+{% endblock %}
+
+
+    
+    
+
+
+

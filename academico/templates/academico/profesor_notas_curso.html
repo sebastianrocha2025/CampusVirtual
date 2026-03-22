@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notas - {{ curso.nombre }}</title>
+</head>
+<body>
+
+<h1>Planilla de notas</h1>
+<h2>{{ curso.nombre }}</h2>
+
+<hr>
+
+<table border="1" cellpadding="8">
+    <thead>
+        <tr>
+            <th>Alumno</th>
+
+            {% for cuestionario in cuestionarios %}
+                <th>{{ cuestionario.titulo }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+
+
+    <tbody>
+        {% for fila in tabla %}
+            <tr>
+                <td>{{ fila.alumno.username }}</td>
+
+                {% for nota in fila.notas %}
+                    <td>
+                      {% if nota is not None %}
+                            {{ nota }}
+                        {% else %}
+                            -
+                        {% endif %}
+
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>
+<a href="javascript:history.back()" class="btn btn-secondary"> Volver</a>
+
+</body>
+{% endblock %}
+</html>

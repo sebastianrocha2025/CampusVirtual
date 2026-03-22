@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if es_preceptor %}
+
+<h1 class="mb-4 text-center">Bienvenido Preceptor!</h1>
+
+{% endif %}
+
+
+{% if es_director %}
+
+<h1 class="mb-4 text-center">Bienvenido Equipo Directivo!</h1>
+
+{% endif %}
+
+<div class="row">
+
+{% for curso in cursos %}
+
+<div class="col-md-4 mb-4">
+
+<div class="card h-100 shadow-sm">
+
+<div class="card-body bg-secondary text-white">
+
+<h5 class="card-title text-center">
+{{ curso.nombre }}
+</h5>
+
+<p class="card-text text-center txt-white">
+Profesor: {{ curso.profesor.first_name }} {{ curso.profesor.last_name }}
+</p>
+
+</div>
+
+<div class="card-footer bg-secondary border-0">
+
+<a href="{% url 'preceptor_alumnos_por_curso' curso.id %}"
+   class="btn btn-secondary btn-sm d-grid gap-2">
+   Ver alumnos
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<p>No hay cursos activos.</p>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

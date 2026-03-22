@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="text-center mb-4">Alumnos – {{ curso.nombre }}</h1>
+
+<div class="d-flex justify-content-center">
+
+<form method="get" class="d-flex gap-2 mb-4" style="max-width:700px; width:100%;">
+
+    <input
+        type="text"
+        name="q"
+        placeholder="Buscar alumno por nombre, usuario o email"
+        value="{{ query }}"
+        class="form-control bg-secondary text-white border-0"
+    >
+
+    <button type="submit" class="btn btn-secondary">
+        Buscar
+    </button>
+
+    {% if query %}
+        <a href="{% url 'preceptor_alumnos_por_curso' curso.id %}" class="btn btn-secondary">
+            Limpiar
+        </a>
+    {% endif %}
+
+</form>
+
+</div>
+
+
+<div class="d-flex justify-content-center">
+
+<table class="table table-striped table-hover table-secondary text-center" style="max-width:900px; width:100%;">
+
+    <thead class="table-secondary">
+        <tr>
+            <th>Alumno</th>
+            <th>Email</th>
+            <th>Estado</th>
+            <th>Ficha</th>
+        </tr>
+    </thead>
+
+<tbody>
+
+{% for inscripcion in inscripciones %}
+<tr>
+    <td>
+        {{ inscripcion.alumno.get_full_name|default:inscripcion.alumno.username }}
+    </td>
+
+    <td>
+        {{ inscripcion.alumno.email|default:"—" }}
+    </td>
+
+    <td>
+        {{ inscripcion.get_estado_display }}
+    </td>
+
+    <td>
+        <a href="{% url 'preceptor_ficha_alumno' inscripcion.alumno.id %}" class="btn btn-secondary btn-sm">
+            Ver ficha
+        </a>
+    </td>
+</tr>
+
+{% empty %}
+
+<tr>
+    <td colspan="4">No hay alumnos inscriptos</td>
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<div class="text-center mt-4">
+<a href="{% url 'preceptor_cursos' %}" class="btn btn-secondary">
+Volver a cursos
+</a>
+</div>
+
+{% endblock %}

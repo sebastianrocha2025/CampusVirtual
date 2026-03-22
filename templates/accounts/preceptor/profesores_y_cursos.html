@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-5">
+
+<h1 class="text-center mb-5 fw-bold">Profesores del Campus</h1>
+
+{% for profesor in profesores %}
+
+<div class="card mb-5 border-0 shadow rounded-4 bg-secondary text-white">
+
+<div class="card-body p-7">
+
+<!-- Header Profesor -->
+<div class="row mb-4 align-items-center">
+
+<div class="col-md-8">
+<h3 class="fw-bold mb-2">
+{{ profesor.last_name|default:profesor.username }}, 
+{{ profesor.first_name|default:"" }}
+</h3>
+
+<p class="mb-1 text-white">
+{{ profesor.email|default:"Sin email" }}
+</p>
+</div>
+
+<div class="col-md-4 text-md-end">
+<div><strong>DNI:</strong> {{ profesor.dni|default:"—" }}</div>
+<div><strong>Tel:</strong> {{ profesor.telefono|default:"—" }}</div>
+<div><strong>Nacimiento:</strong> 
+{{ profesor.fecha_nacimiento|date:"d/m/Y"|default:"—" }}
+</div>
+</div>
+
+</div>
+
+<hr class="mb-4">
+
+
+<table class="table table-sm table-hover align-middle text-center table-secondary-dark">
+
+<thead class="table-secondary">
+<tr>
+<th>Curso</th>
+<th>Estado</th>
+<th>Alumnos</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for curso in profesor.cursos_dictados.all %}
+
+<tr>
+
+<td>
+<strong>{{ curso.nombre }}</strong>
+</td>
+
+<td>
+{% if curso.activo %}
+<span class="badge bg-success">Activo</span>
+{% else %}
+<span class="badge bg-secondary">Inactivo</span>
+{% endif %}
+</td>
+
+<td>
+{% if curso.cupo_maximo %}
+{% with inscriptos=curso.inscripciones_activas %}
+{{ inscriptos }} / {{ curso.cupo_maximo }}
+{% endwith %}
+{% else %}
+Cupo ilimitado
+{% endif %}
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+<td colspan="3" class="text-muted">
+No tiene cursos asignados
+</td>
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<div class="alert alert-warning text-center">
+No hay profesores registrados.
+</div>
+
+{% endfor %}
+
+</div>
+
+<a href="{% url 'preceptor_cursos' %}" class="btn btn-secondary">Volver</a>
+
+{% endblock %}

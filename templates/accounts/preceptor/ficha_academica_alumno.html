@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="text-center"> Ficha Académica</h1>
+
+<h3>
+
+
+Alumno: {{ alumno.first_name }} {{ alumno.last_name }}<br>
+
+
+</h3>
+<h5>Email: {{ alumno.email|default:"—" }}</h5>
+
+    <p>
+        Curso: <strong>{{ inscripcion.curso.nombre }}</strong><br>
+        Estado: <strong>{{ inscripcion.get_estado_display }}</strong>
+    </p>
+
+<hr>
+
+<h3> Notas</h3>
+<ul>
+    {% for nota in notas.all %}
+        <li>{{ nota.nombre }}: {{ nota.valor }}</li>
+
+        
+
+    {% empty %}
+        <li>Sin notas cargadas</li>
+    {% endfor %}
+</ul>
+<hr>
+<h3> Asistencia</h3>
+<p>
+    Porcentaje: <strong>{{ inscripcion.porcentaje_asistencia }}%</strong>
+</p>
+
+<ul>
+    {% for asistencia in inscripcion.asistencias.all %}
+        <li>
+            {{ asistencia.fecha }} —
+            {% if asistencia.presente %}
+                Presente
+            {% else %}
+                Ausente
+            {% endif %}
+        </li>
+    {% empty %}
+        <li>Sin registros de asistencia</li>
+    {% endfor %}
+</ul>
+
+<a href="javascript:history.back()" class="btn btn-secondary"> Volver</a>
+{% endblock %}

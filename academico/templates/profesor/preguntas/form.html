@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>➕ Nueva Pregunta</h2>
+
+{% if error %}
+<p style="color:red;">{{ error }}</p>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <hr>
+
+    {{ formset.management_form }}
+
+    <div id="opciones-container">
+        {% for f in formset %}
+            <div class="opcion">
+                {{ f.id }}
+                {{ f.texto.label_tag }} {{ f.texto }}
+                {{ f.imagen.label_tag }} {{ f.imagen }}
+                {{ f.es_correcta }} Correcta
+                {{ f.DELETE }} Eliminar
+                <hr>
+            </div>
+        {% endfor %}
+    </div>
+
+    <button type="button" id="add-option" class="btn btn-secondary">
+        ➕ Agregar opción
+    </button>
+
+    <br><br>
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">
+            💾 Guardar
+        </button>
+
+        <a href="javascript:history.back()" class="btn btn-secondary">
+            ← Volver
+        </a>
+    </div>
+
+</form>
+
+<script>
+document.getElementById("add-option").addEventListener("click", function() {
+
+    const container = document.getElementById("opciones-container");
+    const totalForms = document.getElementById("id_opciones-TOTAL_FORMS");
+
+    const formCount = parseInt(totalForms.value);
+
+    const firstForm = container.children[0];
+    const newForm = firstForm.cloneNode(true);
+
+    newForm.innerHTML = newForm.innerHTML.replace(/-0-/g, `-${formCount}-`);
+    newForm.innerHTML = newForm.innerHTML.replace(/_0_/g, `_${formCount}_`);
+
+    // limpiar valores
+    newForm.querySelectorAll("input").forEach(input => {
+        if (input.type !== "hidden") {
+            input.value = "";
+            input.checked = false;
+        }
+    });
+
+    container.appendChild(newForm);
+    totalForms.value = formCount + 1;
+});
+</script>
+
+{% endblock %}

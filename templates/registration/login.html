@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+.login-wrapper{
+    min-height:85vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(135deg,#6b7d3a,#55662f);
+}
+
+.login-card{
+    width:400px;
+    padding:40px;
+    border-radius:12px;
+    background:white;
+    box-shadow:0 15px 35px rgba(0,0,0,0.25);
+}
+
+.login-title{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.logo{
+    width:140px;
+    margin-bottom:15px;
+}
+
+.login-title h2{
+    font-weight:600;
+    margin-bottom:5px;
+}
+
+.institucion{
+    font-size:14px;
+    color:#6c757d;
+}
+
+.form-control{
+    margin-top:5px;
+}
+
+.btn-login{
+    width:100%;
+    padding:10px;
+    font-weight:500;
+    background:#6b7d3a;
+    border:none;
+    color:white;
+}
+
+.btn-login:hover{
+    background:#55662f;
+}
+
+.error-box{
+    background:#f8d7da;
+    color:#842029;
+    padding:10px;
+    border-radius:6px;
+    margin-bottom:15px;
+    text-align:center;
+}
+
+</style>
+
+
+<div class="login-wrapper">
+
+<div class="login-card">
+
+<div class="login-title">
+
+<!-- Escudo -->
+<img src="{% static 'img/escudo_2.png' %}" class="logo">
+
+<h2>Campus Virtual</h2>
+<p class="institucion">Centro de Formación y Capacitación</p>
+
+</div>
+
+{% if form.errors %}
+<div class="error-box">
+Usuario o contraseña incorrectos
+</div>
+{% endif %}
+
+<form method="post">
+
+{% csrf_token %}
+
+<div class="mb-3">
+<label class="form-label">Usuario</label>
+{{ form.username }}
+</div>
+
+<div class="mb-3">
+<label class="form-label">Contraseña</label>
+{{ form.password }}
+</div>
+
+<button class="btn btn-login">
+Entrar
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+{% endblock %}
