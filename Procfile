@@ -1,0 +1,1 @@
+web: gunicorn CampusVirtual.wsgi:applicationit
